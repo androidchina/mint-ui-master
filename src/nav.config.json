@@ -8,6 +8,11 @@
         "icon": "spinner"
       },
       {
+        "path": "/Map",
+        "name": "Map",
+        "icon": "indicator"
+      },
+      {
         "path": "/Toast",
         "name": "Toast",
         "icon": "toast"
