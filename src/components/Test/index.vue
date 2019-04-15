@@ -28,14 +28,13 @@ export default {
         .catch(function(error){
           console.info(error);
         }.bind(this))*/
-      this.axios.post("/tuplusapi/Member/VersionCode",this.qs.stringify({'mplatform':'1'}))
+      this.axios.get("/db")
         .then(function(response){
           console.info(response.data);
         })
         .catch(function(error){
           console.info(error);
         });
-
     }
   }
 }

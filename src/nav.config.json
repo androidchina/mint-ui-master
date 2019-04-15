@@ -13,6 +13,16 @@
         "icon": "indicator"
       },
       {
+        "path": "/CustomAdd",
+        "name": "CustomAdd",
+        "icon": "message-box"
+      },
+      {
+        "path": "/ReportList",
+        "name": "ReportList",
+        "icon": "indicator"
+      },
+      {
         "path": "/Toast",
         "name": "Toast",
         "icon": "toast"

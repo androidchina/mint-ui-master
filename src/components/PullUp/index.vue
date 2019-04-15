@@ -1,7 +1,7 @@
 <template>
   <div class="page-loadmore">
     <gheader :examplename="examplename"></gheader>
-    <div class="page-loadmore-wrapper" 
+    <div class="page-loadmore-wrapper"
       :style="{height: wrapperHeight + 'px'}">
       <mt-spinner v-show="list<1 && InitialLoading" color="#26a2ff"></mt-spinner>
       <mt-loadmore :bottom-method="loadBottom"

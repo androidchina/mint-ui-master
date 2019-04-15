@@ -43,6 +43,8 @@ import Badge from '@/components/Badge'
 import Test from '@/components/Test'
 import MyVue from '@/components/Test/MyVue'
 import Map from '@/components/Map'
+import CustomAdd from '@/components/Custom/CustomAdd'
+import ReportList from '@/components/WorkReport/ReportList'
 
 Vue.component('gheader',Gheader)
 Vue.component('gfooter',Gfooter)
@@ -194,6 +196,14 @@ export default new Router({
     {
       path: '/Map',
       component: Map
+    },
+    {
+      path: '/CustomAdd',
+      component: CustomAdd
+    },
+    {
+      path: '/ReportList',
+      component: ReportList
     }
   ],
   scrollBehavior (to, from, savedPosition) {
