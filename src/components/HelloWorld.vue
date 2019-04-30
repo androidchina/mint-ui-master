@@ -13,8 +13,8 @@
           is-link>
           <div slot="title">
             <i :class="['indexicon', 'icon-' + item.icon]"></i>
-            <span>{{item.name}}</span>  
-          </div>  
+            <span>{{item.name}}</span>
+          </div>
         </mt-cell>
       </div>
     </section>

@@ -23,6 +23,9 @@ import 'mint-ui/lib/style.css'
 // import 'jquery/dist/jquery.js'
 // import 'bootstrap/dist/js/bootstrap.min.js'
 import './assets/css/globle.css'
+import './assets/css/my-mint.scss' //全局修改mint-UI样式
+import encodeChange from './components/WorkReport/encodeChange'
+Vue.prototype.encodeChange = encodeChange;
 
 Vue.config.productionTip = false;
 

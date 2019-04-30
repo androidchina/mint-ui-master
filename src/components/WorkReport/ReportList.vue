@@ -1,10 +1,10 @@
 <template>
   <div>
     <mt-header title="全部报告▼">
-      <router-link slot="left" to="/">
+      <router-link slot="left" to="/ReportDetail2">
         <mt-button icon="back" @click="Back">返回</mt-button>
       </router-link>
-      <router-link slot="right" to="/">
+      <router-link slot="right" to="/ReportDetail">
         <mt-button @click="Submit">新增</mt-button>
       </router-link>
     </mt-header>
@@ -29,10 +29,10 @@
         Toast('返回');
       },
       Submit() {
-        Toast({
+        /*Toast({
           message: '提交成功',
           iconClass: 'fa fa-check fa-2x'
-        });
+        });*/
       },
       filter_1() {
         Toast('最新创建');

@@ -45,6 +45,8 @@ import MyVue from '@/components/Test/MyVue'
 import Map from '@/components/Map'
 import CustomAdd from '@/components/Custom/CustomAdd'
 import ReportList from '@/components/WorkReport/ReportList'
+import ReportDetail from '@/components/WorkReport/ReportDetail'
+import ReportDetail2 from '@/components/WorkReport/ReportDetail2'
 
 Vue.component('gheader',Gheader)
 Vue.component('gfooter',Gfooter)
@@ -204,6 +206,14 @@ export default new Router({
     {
       path: '/ReportList',
       component: ReportList
+    },
+    {
+      path: '/ReportDetail',
+      component: ReportDetail
+    },
+    {
+      path: '/ReportDetail2',
+      component: ReportDetail2
     }
   ],
   scrollBehavior (to, from, savedPosition) {
