@@ -46,7 +46,7 @@ import Map from '@/components/Map'
 import CustomAdd from '@/components/Custom/CustomAdd'
 import ReportList from '@/components/WorkReport/ReportList'
 import ReportDetail from '@/components/WorkReport/ReportDetail'
-import ReportDetail2 from '@/components/WorkReport/ReportDetail2'
+import ErrorPage from '@/components/Error/ErrorPage'
 
 Vue.component('gheader',Gheader)
 Vue.component('gfooter',Gfooter)
@@ -212,8 +212,8 @@ export default new Router({
       component: ReportDetail
     },
     {
-      path: '/ReportDetail2',
-      component: ReportDetail2
+      path: '/ErrorPage',
+      component: ErrorPage
     }
   ],
   scrollBehavior (to, from, savedPosition) {
