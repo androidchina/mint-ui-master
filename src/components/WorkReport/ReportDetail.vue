@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  v-if="report_detail_json.reportDetail">
     <mt-header title="日报">
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
@@ -149,6 +149,7 @@
     box_comment: '#box_comment',
     data () {
       return {
+        that: this,
         report_type: 1, // 报告类型  1：日报   2：周边   3：月报
         title_content: '今日总结',
         title_plan: '明日计划',
@@ -162,65 +163,15 @@
         report_auditing_show_url: report_auditing_show,
         comment_send: '',
         is_read: '', // 是否已读
-        report_detail_json: [
-          {
-            "message": "",
-            "reportDetail": {
-              "add_customer_num": 0,
-              "add_customer_num_isok": 0,
-              "add_money": 0,
-              "add_money_isok": 0,
-              "back_money": 0,
-              "back_money_isok": 0,
-              "cc_member_name": "",
-              "comments": [
-
-              ],
-              "content": "",
-              "date": "",
-              "feedback": "",
-              "in_visit_num": 0,
-              "in_visit_num_isok": 0,
-              "is_read": "7",
-              "is_show_verfiy_button": false,
-              "is_verify_report": false,
-              "leader_member_id": 0,
-              "leader_member_name": "",
-              "member_name": "",
-              "money": 0,
-              "next_add_customer_num": 0,
-              "next_add_money": 0,
-              "next_back_money": 0,
-              "next_in_visit_num": 0,
-              "next_out_visit_num": 0,
-              "next_plan": "",
-              "out_visit_num": 0,
-              "out_visit_num_isok": 0,
-              "praise_member_name": "",
-              "travel_days": 0,
-              "type": 1,
-              "type_name": "",
-              "verify_member_names": ""
-            },
-            "resCode": ""
-          }
-
-        ],
-        comment_json: [
-          {
-          "message": "",
-          "praise": "",
-          "praise_member_name": "",
-          "reportComment": [],
-          "resCode": ""
-          }
-        ],
+        report_detail_json: [],
+        comment_json: [],
         member_id: 'c746f99a3c1aaf7690470e3159d8b8cddbac0f4a2c7d251a29c8fa1d58504d663c8403d6a2ea7cabec77511a1d00915881a5ce15df0bf4cef257ffb1fa4b477412b59033baf396a8d9e441fa0b12faf01f85e741e3ec924dcae0145cedd05a170d6647c0a2ca0dfdaa059d6b32f7bea56548169f44755d80bd18dd5ab1715531',
         login_key:'d67cffe7dec3d0b0115a28890c784ec05f69adfe11cef9eb797ccf892407815f583e266ace1178e732c56bc62dc61413f046af1321a058fa7b17c99de4a7172505ae9f9685b3b074c7813e7c127757f97cabf7a2f80510fdba1854d60d0c63e4d856d5465e8a40f841a11d0228a0cb032b0bb4affe9ffe1f089745d0b4144f7e',
         report_id:''
       }
     },
-    mounted: function () {
+
+    created: function() {
       this.report_id = this.$route.query.report_id;
       this.getReportList();
       this.getCommentList();

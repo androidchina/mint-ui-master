@@ -4,7 +4,7 @@
       <router-link slot="left" to="/">
         <mt-button icon="back" @click="Back">返回</mt-button>
       </router-link>
-      <router-link slot="right" to="/ErrorPage">
+      <router-link slot="right" to="/">
         <mt-button @click="Submit">新增</mt-button>
       </router-link>
     </mt-header>
