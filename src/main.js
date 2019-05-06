@@ -29,6 +29,10 @@ Vue.prototype.encodeChange = encodeChange;
 
 Vue.config.productionTip = false;
 
+/*import {ToastPlugin, LoadingPlugin} from 'vux'
+Vue.use(ToastPlugin);
+Vue.use(LoadingPlugin);*/
+
 
 /* eslint-disable no-new */
 new Vue({

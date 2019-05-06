@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  API_HOST:"/api/"
+  BASE_URL: '"http://scrm.southsurvey.com/tuplusapi/"'
 }

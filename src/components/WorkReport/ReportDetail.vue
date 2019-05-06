@@ -143,6 +143,7 @@
   import {Toast} from 'mint-ui';
   import report_auditing_show from '../../assets/img/report_auditing_show.png';
   import report_auditing_show_no from '../../assets/img/report_auditing_show_no.png';
+  import {getCommentList} from '../../axios/api.js';
 
 
   export default {
@@ -166,12 +167,12 @@
         report_detail_json: [],
         comment_json: [],
         member_id: 'c746f99a3c1aaf7690470e3159d8b8cddbac0f4a2c7d251a29c8fa1d58504d663c8403d6a2ea7cabec77511a1d00915881a5ce15df0bf4cef257ffb1fa4b477412b59033baf396a8d9e441fa0b12faf01f85e741e3ec924dcae0145cedd05a170d6647c0a2ca0dfdaa059d6b32f7bea56548169f44755d80bd18dd5ab1715531',
-        login_key:'d67cffe7dec3d0b0115a28890c784ec05f69adfe11cef9eb797ccf892407815f583e266ace1178e732c56bc62dc61413f046af1321a058fa7b17c99de4a7172505ae9f9685b3b074c7813e7c127757f97cabf7a2f80510fdba1854d60d0c63e4d856d5465e8a40f841a11d0228a0cb032b0bb4affe9ffe1f089745d0b4144f7e',
+        login_key:'3b6ea1a046e248795dcc0d30770f57b5c473e310ac8bf8667f9b52a18769c2fe75fdb67d5ca04f0e99cd889a93db5fcde0ead16be331ec272960767eb44c4226a14835e0f69174eaea8cdd2f05f271d62f3bd46186c7b0c684d9eddf002f8fa01759506f8a139133c98c078dc557dc15f0009b5b5abdc5b07a3163d3d2ba3c4e',
         report_id:''
       }
     },
 
-    created: function() {
+    created: async function() {
       this.report_id = this.$route.query.report_id;
       this.getReportList();
       this.getCommentList();
@@ -202,8 +203,8 @@
       },
 
       // 获取评论列表
-      getCommentList() {
-        this.axios({
+      async getCommentList() {
+        /*this.axios({
           method:'post',
           url:'http://scrm.southsurvey.com/tuplusapi/workReport/getComment',
           data:this.qs.stringify({
@@ -221,7 +222,21 @@
           }
         }).catch((error) =>{
           console.log(error)
-        })
+        })*/
+
+        const params = {
+          member_id: this.member_id,
+          login_key: this.login_key,
+          report_id: this.report_id
+        };
+        let res = await getCommentList(params);
+        console.log("resCode = " + res.resCode);
+        this.comment_json = res;
+        if (this.comment_json.praise_member_name != null && this.comment_json.praise_member_name.length > 0) {
+          this.show_praise_person = true;
+        } else {
+          this.show_praise_person = false;
+        }
       },
       // 点赞
       praise() {
