@@ -10,15 +10,15 @@
             <a href="javascript:;" class="show clearfix">
               <div class="img-box">
                 <img src="http://p18nr20h5.bkt.clouddn.com/o_1caahtfg41c9s1tv41hatr9718o4a.jpeg!180x120" class="fl">
-              </div> 
-              <h5 class="white-space">别让错误的认知毁掉我们的人生</h5> 
+              </div>
+              <h5 class="white-space">别让错误的认知毁掉我们的人生</h5>
               <p>
                 女孩天生就不擅长数学、女孩学不好数学是正常的。因为
                 <span class="color_e85647">...详情</span>
-              </p> 
+              </p>
               <p class="read">
-                <span class="fa fa-eye"></span> 391 &nbsp;&nbsp;&nbsp;
-                <span class="fa fa-pencil-square-o"></span> 10
+                <span class="fa fa-eye"></span> 400 &nbsp;&nbsp;&nbsp;
+                <span class="fa fa-pencil-square-o"></span> 12
               </p>
            </a>
           </div>
@@ -63,16 +63,6 @@ export default {
     }else{
       this.wrapperHeight = document.documentElement.clientHeight - 80;
     }
-    // const that = this;
-    // window.onresize = function temp() {
-    //   windowWidth = document.documentElement.clientWidth;//获取屏幕高度
-    //   console.log(windowWidth);
-    //   if(windowWidth >= 768){//这里根据自己的实际情况设置容器的高度
-    //     this.wrapperHeight = document.documentElement.clientHeight - 105;
-    //   }else{
-    //     this.wrapperHeight = document.documentElement.clientHeight - 80;
-    //   }
-    // };
     setTimeout(()=>{//页面挂载完毕 模拟数据请求 这里为了方便使用一次性定时器
       this.list = 12;
     },1500)

@@ -13,8 +13,8 @@
       class="mint-popup-1">
       <!-- :style="{top: buttonBotton + 10 + 'px'}" -->
       <h1>popup</h1>
-      <p>/ ˈpɑpˌʌp /</p> 
-      <p>n. 弹出式; [棒]内野飞球; 自动起跳式装置</p> 
+      <p>/ ˈpɑpˌʌp /</p>
+      <p>n. 弹出式; [棒]内野飞球; 自动起跳式装置</p>
       <p>adj. 弹起的; 有自动起跳装置的</p>
     </mt-popup>
     <mt-popup
@@ -27,7 +27,7 @@
       v-model="popupVisible3"
       position="right"
       class="mint-popup-3">
-      <mt-button type="primary" size="large" @click="closePopup3"> 
+      <mt-button type="primary" size="large" @click="closePopup3">
         <label class="mint-button-text">关闭 popup</label>
       </mt-button >
     </mt-popup>

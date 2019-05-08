@@ -1,21 +1,22 @@
 <template>
   <div>
-    <gheader :examplename="examplename"></gheader>
+    <gheader :examplename="examplename" ref="myChild"></gheader>
+    <myheader :title_name="title_name"></myheader>
     <ul>
       <li><mt-button size="large" @click="ToastA">默认Toast</mt-button></li>
       <li><mt-button size="large" @click="ToastB">带Icon标志的Toast</mt-button></li>
       <li><mt-button size="large" @click="ToastC">自定义位置Toast</mt-button></li>
-    </ul> 
-    <gfooter></gfooter> 
+    </ul>
+    <gfooter></gfooter>
   </div>
 </template>
 <script>
 import { Toast } from 'mint-ui';
 export default {
-  name: 'Toast',
   data(){
     return {
-      examplename: "Toast"
+      examplename: "我是标题",
+      title_name: "我是标题"
     }
   },
   mounted(){
@@ -23,7 +24,8 @@ export default {
   },
   methods:{
     ToastA(){
-      Toast('默认Toast');
+      //Toast('默认Toast');
+      //this.$refs.myChild.testMethod();
     },
     ToastB(){
       Toast({
@@ -37,6 +39,9 @@ export default {
         position: 'bottom',
         duration: 5000
       });
+    },
+    fatherMethod() {
+      console.log('测试');
     }
   }
 }

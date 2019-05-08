@@ -47,9 +47,11 @@ import CustomAdd from '@/components/Custom/CustomAdd'
 import ReportList from '@/components/WorkReport/ReportList'
 import ReportDetail from '@/components/WorkReport/ReportDetail'
 import ErrorPage from '@/components/Error/ErrorPage'
+import Header from '@/components/Common/Header'
 
 Vue.component('gheader',Gheader)
 Vue.component('gfooter',Gfooter)
+Vue.component('myheader',Header)
 
 
 
@@ -214,6 +216,10 @@ export default new Router({
     {
       path: '/ErrorPage',
       component: ErrorPage
+    },
+    {
+      path: '/Header',
+      component: Header
     }
   ],
   scrollBehavior (to, from, savedPosition) {

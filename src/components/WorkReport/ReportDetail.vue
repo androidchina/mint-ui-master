@@ -1,6 +1,6 @@
 <template>
   <div  v-if="report_detail_json.reportDetail">
-    <mt-header title="日报">
+    <mt-header title="日报" class="title">
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
@@ -380,11 +380,19 @@
 </script>
 
 <style scoped>
+  .title {
+    height: 40px;
+    width: 100%;
+    top: 0;
+    position: fixed;
+
+  }
   .report_title {
     display: flex;
     flex-direction: row;
     line-height: 30px;
     font-size: 14px;
+    margin-top: 40px;
     border-bottom:solid 1px #eeeeee;
   }
   .user_name {
