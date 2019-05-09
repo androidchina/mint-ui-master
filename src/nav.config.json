@@ -23,6 +23,11 @@
         "icon": "indicator"
       },
       {
+        "path": "/ReportList2",
+        "name": "ReportList2",
+        "icon": "jiazai"
+      },
+      {
         "path": "/Toast",
         "name": "Toast",
         "icon": "toast"

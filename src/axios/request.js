@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import {Toast} from 'mint-ui';
+import { Indicator } from 'mint-ui';
 //import app from "../main.js";
 
 
@@ -13,14 +14,9 @@ const service = axios.create({
 
 /****** request拦截器==>对请求参数做处理 ******/
 service.interceptors.request.use(config => {
-  /*app.$vux.loading.show({
-    text: '数据加载中……'
-  });*/
+
   console.log("数据加载中……");
- /* app.$vux.toast.show({  //常规错误处理
-    type: 'warn',
-    text: "数据加载中……"
-  });*/
+  Indicator.open('加载中');
 
   config.method === 'post'
     ? config.data = qs.stringify({...config.data})
@@ -29,10 +25,8 @@ service.interceptors.request.use(config => {
 
   return config;
 }, error => {  //请求错误处理
-  /*app.$vux.toast.show({
-    type: 'warn',
-    text: error
-  });*/
+
+  Indicator.close();
   console.log("error1 = " +  error);
   Promise.reject(error)
 });
@@ -41,15 +35,14 @@ service.interceptors.request.use(config => {
 /****** respone拦截器==>对响应做处理 ******/
 service.interceptors.response.use(
   response => {  //成功请求到数据
-    //app.$vux.loading.hide();
-
+    Indicator.close();
     console.log("数据加载成功");
-    console.log(response.data.resCode);
 
     if (response.data.resCode === "1") {
       return response.data;
     } else {
       Toast(response.data.message);
+      return response.data;
     }
   },
   error => {  //响应错误处理
