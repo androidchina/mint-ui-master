@@ -86,8 +86,6 @@
           translate: 0,//
           moveTranslate: 0,
           report_list_json: [],
-          member_id: 'aef672f1fe9581461185eada4a720240442e1ecbfb599ebba3c2ea6aa4ac614cdf606d2b1b80a2aa82dbd9ccd56db9e0431c886773a107501ee11d369d4e92f5afc19374258d4d6dc3c56fabd21b81d0338f77cd2a17fac1866524e4e64900a85875b453c131680c1071f15703622fb81051c245dd72ab761e522d91990b0e78',
-          login_key:'9c486ad0e5d91a45e7285c284623c704f306db90e14510107cb07e1e620758f04d208a397bed21e81dae9df7bb4f2dfebdb63e5ad72721fa10366ada28bf896ceb9b8446f540220cc6b3462eab5c096b0ab8add8566f88c84f6e6cdd696428e7ac3b8d6c03a0fa6ed75e402404d058a92b469992eae937e504830dfc032180dc',
           report_id:'',
         }
       },
@@ -107,8 +105,6 @@
       methods: {
         async reportListRefresh() {
           const params = {
-            member_id: this.member_id,
-            login_key: this.login_key,
             report_type: 0, // 报告类型
             data_source: 0, // 数据源
             begin_time: "", // 开始时间

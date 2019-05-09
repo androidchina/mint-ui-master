@@ -167,8 +167,6 @@
         is_read: '', // 是否已读
         report_detail_json: [],
         comment_json: [],
-        member_id: 'aef672f1fe9581461185eada4a720240442e1ecbfb599ebba3c2ea6aa4ac614cdf606d2b1b80a2aa82dbd9ccd56db9e0431c886773a107501ee11d369d4e92f5afc19374258d4d6dc3c56fabd21b81d0338f77cd2a17fac1866524e4e64900a85875b453c131680c1071f15703622fb81051c245dd72ab761e522d91990b0e78',
-        login_key:'9c486ad0e5d91a45e7285c284623c704f306db90e14510107cb07e1e620758f04d208a397bed21e81dae9df7bb4f2dfebdb63e5ad72721fa10366ada28bf896ceb9b8446f540220cc6b3462eab5c096b0ab8add8566f88c84f6e6cdd696428e7ac3b8d6c03a0fa6ed75e402404d058a92b469992eae937e504830dfc032180dc',
         report_id:''
       }
     },
@@ -195,8 +193,6 @@
       // 获取工作报告详情
       async getReportDetail() {
         const params = {
-          member_id: this.member_id,
-          login_key: this.login_key,
           report_id: this.report_id
         };
         let res = await getReportDetail(params);
@@ -211,8 +207,6 @@
       // 获取评论列表
       async getCommentList() {
         const params = {
-          member_id: this.member_id,
-          login_key: this.login_key,
           report_id: this.report_id
         };
         let res = await getCommentList(params);
@@ -227,8 +221,6 @@
       // 点赞
       async praise() {
         const params = {
-          member_id: this.member_id,
-          login_key: this.login_key,
           report_id: this.report_id
         };
         let res = await reportPraise(params);
@@ -244,8 +236,6 @@
       // 审核
       async auditing() {
         const params = {
-          member_id: this.member_id,
-          login_key: this.login_key,
           report_id: this.report_id,
           verify_result: "1"
         };
@@ -260,8 +250,6 @@
           Toast("请输入评论内容");
         } else {
           const params = {
-            member_id: this.member_id,
-            login_key: this.login_key,
             report_id: this.report_id,
             content: this.comment_send
           };
