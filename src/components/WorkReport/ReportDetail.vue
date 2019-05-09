@@ -429,7 +429,6 @@
     background-color: #d3d3d3;
     font-size: 13px;
     padding-left: 10px;
-    padding-bottom: 10px;
     padding-right: 10px;
   }
   .auditing_img {
