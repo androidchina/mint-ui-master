@@ -19,11 +19,6 @@
       },
       {
         "path": "/ReportList",
-        "name": "ReportList",
-        "icon": "indicator"
-      },
-      {
-        "path": "/ReportList2",
         "name": "工作报告",
         "icon": "jiazai"
       },

@@ -44,9 +44,8 @@ import Test from '@/components/Test'
 import MyVue from '@/components/Test/MyVue'
 import Map from '@/components/Map'
 import CustomAdd from '@/components/Custom/CustomAdd'
-import ReportList from '@/components/WorkReport/ReportList'
 import ReportDetail from '@/components/WorkReport/ReportDetail'
-import ReportList2 from '@/components/WorkReport/ReportList2'
+import ReportList from '@/components/WorkReport/ReportList'
 import ErrorPage from '@/components/Error/ErrorPage'
 import Header from '@/components/Common/Header'
 
@@ -214,10 +213,6 @@ export default new Router({
       path: '/ReportDetail',
       name: 'ReportDetail',
       component: ReportDetail
-    },
-    {
-      path: '/ReportList2',
-      component: ReportList2
     },
     {
       path: '/ErrorPage',
