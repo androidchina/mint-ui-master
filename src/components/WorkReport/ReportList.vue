@@ -35,7 +35,7 @@
       class="mint_popup_1">
       <div class="popup_1_box1" @click="addReport(1)">日报</div>
       <div class="popup_1_box1" @click="addReport(2)">周报</div>
-      <div class="popup_1_box2"@click="addReport(3)">月报</div>
+      <div class="popup_1_box2" @click="addReport(3)">月报</div>
     </mt-popup>
     <mt-popup
       v-model="popupVisible2"
@@ -136,6 +136,7 @@
   }
   .div_list {
     width: 100%;
+    height: 400px;
     background-color: white;
   }
 

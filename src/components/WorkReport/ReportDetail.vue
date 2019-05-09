@@ -136,6 +136,7 @@
         </li>
       </ul>
     </div>
+
   </div>
 </template>
 
@@ -143,7 +144,7 @@
   import {Toast} from 'mint-ui';
   import report_auditing_show from '../../assets/img/report_auditing_show.png';
   import report_auditing_show_no from '../../assets/img/report_auditing_show_no.png';
-  import {getCommentList} from '../../axios/api.js';
+  import {getReportDetail, getCommentList, reportPraise, sendComment, reportAuditing} from '../../axios/api.js';
 
 
   export default {
@@ -173,164 +174,103 @@
     },
 
     created: async function() {
-      this.report_id = this.$route.query.report_id;
-      this.getReportList();
+      this.report_id = this.$route.params.report_id;
+      console.log('加密前 report_id:%o', this.report_id);
+      //公钥
+      let PUBLIC_KEY = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgh354h7NMxUb2iFNgR337SU/UxLKr7HBFihKYC/zFfoiqrdU3gs6kaB2VV0w4D3hmWeL2Dn9JxSBl/OXYpt+aREVTqSq5zfg5ARJBUFR89gfUkReONCevsl7OmWS+DoS48/7YW6jktwKViFrDcb6lqnhKYhmEu96maNrN9YB0ZQIDAQAB';
+
+      //使用公钥加密
+      let encrypt = new JSEncrypt();
+      encrypt.setPublicKey(PUBLIC_KEY);
+      let report_id = encrypt.encrypt("" + this.report_id);
+
+      this.report_id = this.encodeChange.base64toHex(report_id);
+
+      console.log('加密后 report_id:%o', this.report_id);
+
+      this.getReportDetail();
       this.getCommentList();
     },
     methods: {
       // 获取工作报告详情
-      getReportList() {
-        this.axios({
-          method:'post',
-          url:'http://scrm.southsurvey.com/tuplusapi/workReport/detail',
-          data:this.qs.stringify({    //这里是发送给后台的数据
-            member_id: this.member_id,
-            login_key: this.login_key,
-            report_id: this.report_id
-          })
-        }).then((response) =>{          //这里使用了ES6的语法
-          console.log(response.data);       //请求成功返回的数据
-          this.report_detail_json = response.data;
-          this.show_auditing_btn = this.report_detail_json.reportDetail.is_show_verfiy_button;
-          this.is_read = this.report_detail_json.reportDetail.is_read;
-          this.report_type = this.report_detail_json.reportDetail.type;
-          this.initView();
-          this.initAuditing();
-        }).catch((error) =>{
-          console.log("error = " + error);       //请求失败返回的数据
-          this.goErrorPage();
-        })
+      async getReportDetail() {
+        const params = {
+          member_id: this.member_id,
+          login_key: this.login_key,
+          report_id: this.report_id
+        };
+        let res = await getReportDetail(params);
+        this.report_detail_json = res;
+        this.show_auditing_btn = this.report_detail_json.reportDetail.is_show_verfiy_button;
+        this.is_read = this.report_detail_json.reportDetail.is_read;
+        this.report_type = this.report_detail_json.reportDetail.type;
+        this.initView();
+        this.initAuditing();
       },
 
       // 获取评论列表
       async getCommentList() {
-        /*this.axios({
-          method:'post',
-          url:'http://scrm.southsurvey.com/tuplusapi/workReport/getComment',
-          data:this.qs.stringify({
-            member_id: this.member_id,
-            login_key: this.login_key,
-            report_id: this.report_id
-          })
-        }).then((response) =>{
-          console.log(response.data);
-          this.comment_json = response.data;
-          if (this.comment_json.praise_member_name != null && this.comment_json.praise_member_name.length > 0) {
-            this.show_praise_person = true;
-          } else {
-            this.show_praise_person = false;
-          }
-        }).catch((error) =>{
-          console.log(error)
-        })*/
-
         const params = {
           member_id: this.member_id,
           login_key: this.login_key,
           report_id: this.report_id
         };
         let res = await getCommentList(params);
-        console.log("resCode = " + res.resCode);
         this.comment_json = res;
         if (this.comment_json.praise_member_name != null && this.comment_json.praise_member_name.length > 0) {
           this.show_praise_person = true;
         } else {
           this.show_praise_person = false;
         }
+        this.initAuditing();
       },
       // 点赞
-      praise() {
-        this.axios({
-          method:'post',
-          url:'http://scrm.southsurvey.com/tuplusapi/workReport/praise',
-          data:this.qs.stringify({
-            member_id: this.member_id,
-            login_key: this.login_key,
-            report_id: this.report_id
-          })
-        }).then((response) =>{
-          console.log(response.data);
-          this.comment_json = response.data;
-          Toast(response.data.message);
-          // 刷新点赞人
-          this.getCommentList();
-        }).catch((error) =>{
-          console.log(error)
-        })
+      async praise() {
+        const params = {
+          member_id: this.member_id,
+          login_key: this.login_key,
+          report_id: this.report_id
+        };
+        let res = await reportPraise(params);
+        Toast(res.message);
+        // 刷新点赞人
+        this.getCommentList();
       },
+
       comment() {
         //Toast('评论');
         this.show_comment = !this.show_comment;
-        /*if (this.show){
-          document.getElementById("div_comment").scrollIntoView();
-        }*/
-
-
-        /*//公钥
-        var PUBLIC_KEY = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgh354h7NMxUb2iFNgR337SU/UxLKr7HBFihKYC/zFfoiqrdU3gs6kaB2VV0w4D3hmWeL2Dn9JxSBl/OXYpt+aREVTqSq5zfg5ARJBUFR89gfUkReONCevsl7OmWS+DoS48/7YW6jktwKViFrDcb6lqnhKYhmEu96maNrN9YB0ZQIDAQAB';
-
-        console.log(PUBLIC_KEY);
-        //使用公钥加密
-        var encrypt = new JSEncrypt();
-        encrypt.setPublicKey(PUBLIC_KEY);
-        var name = encrypt.encrypt('hudi');
-        var password = encrypt.encrypt('123456');
-        var type = encrypt.encrypt('1');
-        var date = encrypt.encrypt('2019-04-25');
-
-        let a = this.encodeChange.base64toHex(name);
-        let b = this.encodeChange.base64toHex(password);
-        let c = this.encodeChange.base64toHex(type);
-        let d = this.encodeChange.base64toHex(date);
-
-        console.log('加密后数据name:%o', a);
-        console.log('加密后数据password:%o', b);
-        console.log('加密后数据password:%o', c);
-        console.log('加密后数据password:%o', d);*/
-
         },
       // 审核
-      auditing() {
-        this.axios({
-          method:'post',
-          url:'http://scrm.southsurvey.com/tuplusapi/WorkReport/verify',
-          data:this.qs.stringify({
-            member_id: this.member_id,
-            login_key: this.login_key,
-            report_id: this.report_id,
-            verify_result: "1"
-          })
-        }).then((response) =>{
-          console.log(response.data);
-          Toast(response.data.message);
-        }).catch((error) =>{
-          console.log(error);
-        })
+      async auditing() {
+        const params = {
+          member_id: this.member_id,
+          login_key: this.login_key,
+          report_id: this.report_id,
+          verify_result: "1"
+        };
+        let res = await reportAuditing(params);
+        Toast(res.message);
+        // 刷新审核人
+        this.getCommentList();
       },
       // 发送评论
-      sendComment() {
+      async sendComment() {
         if (this.comment_send == null || this.comment_send.length == 0) {
           Toast("请输入评论内容");
         } else {
-          this.axios({
-            method:'post',
-            url:'http://scrm.southsurvey.com/tuplusapi/workReport/comment',
-            data:this.qs.stringify({
-              member_id: this.member_id,
-              login_key: this.login_key,
-              report_id: this.report_id,
-              content: this.comment_send
-            })
-          }).then((response) =>{
-            console.log(response.data);
-            this.comment_json = response.data;
-            Toast(response.data.message);
-            // 刷新评论列表
-            this.getCommentList();
-            this.show_comment = !this.show_comment;
-          }).catch((error) =>{
-            console.log(error)
-          })
+          const params = {
+            member_id: this.member_id,
+            login_key: this.login_key,
+            report_id: this.report_id,
+            content: this.comment_send
+          };
+          let res = await sendComment(params);
+          this.comment_json = res;
+          Toast(res.message);
+          // 刷新评论列表
+          this.getCommentList();
+          this.show_comment = !this.show_comment;
         }
       },
 

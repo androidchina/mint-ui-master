@@ -46,6 +46,7 @@ service.interceptors.response.use(
     }
   },
   error => {  //响应错误处理
+    Indicator.close();
     if (error.toString().indexOf("timeout") != -1) {
       Toast("请求超时，请检查网络连接");
     } else if (error.response.status === 404) {

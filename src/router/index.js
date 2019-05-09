@@ -212,6 +212,7 @@ export default new Router({
     },
     {
       path: '/ReportDetail',
+      name: 'ReportDetail',
       component: ReportDetail
     },
     {

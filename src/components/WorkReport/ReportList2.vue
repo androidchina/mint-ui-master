@@ -5,9 +5,11 @@
         <mt-button icon="back"></mt-button>
       </router-link>
       <router-link slot="right" to="">
-        <mt-button>新增</mt-button>
+        <mt-button  @click="addReport">新增</mt-button>
       </router-link>
     </mt-header>
+
+    <div style="line-height: 40px; margin-top: 40px; text-align: center; background-color: #FF7F50">筛选</div>
 
     <div class="page-loadmore-wrapper" :style="{ height: wrapperHeight + 'px' }">
       <mt-spinner v-show="InitialLoading" color="#26a2ff"></mt-spinner>
@@ -16,7 +18,7 @@
         <!-- :auto-fill="true" 时页面加载完毕时 默认执行loadBottom 值为false时 自己写一个加载 -->
         <div class="hot-list">
           <div class="hot-one hot-item" v-for="(report_item, index) in report_list_json" :key="index" v-if="report_list_json">
-            <a href="javascript:;" class="show clearfix" @click="test">
+            <a href="javascript:;" class="show clearfix" @click="itemClick(report_item.id)">
               <div>
                 <span class="report_type">{{report_item.type_name}}</span>
                 <span class="report_date">[{{report_item.date}}]</span>
@@ -54,6 +56,16 @@
 
       </mt-loadmore>
     </div>
+
+    <mt-popup
+      v-model="popupVisible1"
+      popup-transition="popup-fade"
+      class="mint_popup_1">
+      <div class="popup_1_box1">日报</div>
+      <div class="popup_1_box1">周报</div>
+      <div class="popup_1_box2">月报</div>
+    </mt-popup>
+
   </div>
 </template>
 <script>
@@ -67,6 +79,7 @@
           page: 0,//页码
           InitialLoading: false,//初始加载
           allLoaded: false,//数据是否加载完毕
+          popupVisible1: false,//新增报告弹框
           bottomStatus: '',//底部上拉加载状态
           wrapperHeight: 0,//容器高度
           topStatus: '',//顶部下拉加载状态
@@ -80,11 +93,6 @@
       },
 
       created: async function() {
-        // 获取工作报告列表
-        this.reportListRefresh();
-      },
-
-      mounted (){
         /*let windowWidth = document.documentElement.clientWidth;//获取屏幕宽度
         if(windowWidth >= 768){//这里根据自己的实际情况设置容器的高度
           this.wrapperHeight = document.documentElement.clientHeight - 105;
@@ -92,9 +100,8 @@
           this.wrapperHeight = document.documentElement.clientHeight - 80;
         }*/
         this.wrapperHeight = document.documentElement.clientHeight;
-        /*setTimeout(()=>{//页面挂载完毕 模拟数据请求 这里为了方便使用一次性定时器
-          this.list = 12;
-        },1500)*/
+        // 获取工作报告列表
+        this.reportListRefresh();
       },
 
       methods: {
@@ -148,9 +155,10 @@
           this.$refs.loadmore.onBottomLoaded();
         },
 
-        test(){
-          Toast("Test");
+        itemClick(report_id){
+          this.$router.push({ name: 'ReportDetail', params: { report_id: report_id}});
         },
+
         handleBottomChange(status) {
           this.moveTranslate = 1;
           this.bottomStatus = status;
@@ -160,15 +168,6 @@
           this.handleBottomChange("loading");//上拉时 改变状态码
           this.page += 1;
           this.reportListLoadMore();
-          /*setTimeout(() => {//上拉加载更多 模拟数据请求这里为了方便使用一次性定时器
-            if(this.page <= 3){//最多下拉三次
-              this.list += 12;//上拉加载 每次数值加12
-            }else{
-              this.allLoaded = true;//模拟数据加载完毕 禁用上拉加载
-            }
-            this.handleBottomChange("loadingEnd");//数据加载完毕 修改状态码
-            this.$refs.loadmore.onBottomLoaded();
-          }, 1500);*/
         },
         handleTopChange(status) {
           this.moveTranslate = 1;
@@ -183,13 +182,12 @@
           this.handleTopChange("loading");//下拉时 改变状态码
           this.page = 0;
           this.allLoaded = false;//下拉刷新时解除上拉加载的禁用
-          /*setTimeout(() => {
-            this.list = 12;//下拉刷新 数据初始化
-            this.handleTopChange("loadingEnd")//数据加载完毕 修改状态码
-            this.$refs.loadmore.onTopLoaded();
-          }, 1500);*/
           this.reportListRefresh();
         },
+
+        addReport() {
+          this.popupVisible1 = true;
+        }
       }
     }
 </script>
@@ -204,7 +202,6 @@
 
   .page-loadmore-wrapper {
     overflow: scroll;
-    margin-top: 40px;
   }
   .hot-list {
     padding: 0 8px;
@@ -222,9 +219,6 @@
   .hot-item a img {
     width: 135px;
     height: 90px;
-  }
-  .fl {
-    float: left;
   }
   .hot-one a h5 {
     margin-top: 2px;
@@ -269,5 +263,26 @@
     float:right;
     margin-right: 8px;
     color: red;
+  }
+
+  .mint_popup_1 {
+    width: 100px;
+    border-radius: 8px;
+  }
+
+  .popup_1_box1 {
+    width: 100px;
+    text-align: center;
+    font-size: 13px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom:solid 1px #eeeeee;
+  }
+  .popup_1_box2 {
+    width: 100px;
+    text-align: center;
+    font-size: 13px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 </style>
