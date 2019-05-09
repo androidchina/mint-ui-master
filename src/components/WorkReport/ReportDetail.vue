@@ -1,6 +1,6 @@
 <template>
   <div  v-if="report_detail_json.reportDetail">
-    <mt-header title="日报" class="title">
+    <mt-header :title="report_detail_json.reportDetail.type_name" class="title">
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
