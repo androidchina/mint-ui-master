@@ -46,7 +46,9 @@
     </div>
 
     <div>
-      <img class="auditing_img" src="../../assets/img/report_auditing_show_no.png" alt="" v-if="show_auditing_img"/>
+      <img class="auditing_img" src="../../assets/img/report_auditing_show.png" alt="" v-if="report_detail_json.reportDetail.is_read === '5'"/>
+      <img class="auditing_img" src="../../assets/img/report_auditing_show_no.png" alt="" v-else-if="report_detail_json.reportDetail.is_read === '6'"/>
+
       <div class="title_blue" v-text="title_content">今日总结</div>
       <div class="report_content">{{report_detail_json.reportDetail.content}}</div>
     </div>
@@ -127,9 +129,9 @@
       <img class="img_praise" src="../../assets/img/praise_heart.png"  alt=""/>点赞人：{{comment_json.praise_member_name}}
     </div>
 
-    <div class="comment_list">
+    <div>
       <ul>
-        <li v-for="comment_item in comment_json.reportComment">
+        <li class="comment_list" v-for="comment_item in comment_json.reportComment">
           <span>{{comment_item.member_name}}</span>
           <span>：</span>
           <span>{{comment_item.content}}</span>
@@ -157,14 +159,11 @@
         title_plan: '明日计划',
         title_table: '下周计划',
         show_day_report: true, // 是否是日报
-        show_auditing_btn: false, // 是否显示审批按钮
-        show_auditing_img: false, // 是否显示审批图片
         show_auditing_person: false, // 是否显示已审批人
         show_praise_person: false, // 是否显示点赞
         show_comment: false,  // 是否显示评论框
         report_auditing_show_url: report_auditing_show,
         comment_send: '',
-        is_read: '', // 是否已读
         report_detail_json: [],
         comment_json: [],
         report_id:''
@@ -197,8 +196,6 @@
         };
         let res = await getReportDetail(params);
         this.report_detail_json = res;
-        this.show_auditing_btn = this.report_detail_json.reportDetail.is_show_verfiy_button;
-        this.is_read = this.report_detail_json.reportDetail.is_read;
         this.report_type = this.report_detail_json.reportDetail.type;
         this.initView();
         this.initAuditing();
@@ -242,6 +239,7 @@
         let res = await reportAuditing(params);
         Toast(res.message);
         // 刷新审核人
+        this.getReportDetail();
         this.getCommentList();
       },
       // 发送评论
@@ -283,20 +281,15 @@
 
       // 初始化审核控件
       initAuditing() {
-        this.show_auditing_img = false;
-        if (this.is_read != null && this.is_read == "6") { // 未审核
-          this.show_auditing_img = true;
-          this.report_auditing_show_url = report_auditing_show_no;
-        }
-        if (this.is_read == "5") { // 已审核
-          this.show_auditing_img = true;
-          this.report_auditing_show_url = report_auditing_show;
-        }
-
         if (this.report_detail_json.reportDetail.verify_member_names != null && this.report_detail_json.reportDetail.verify_member_names.length > 0) {
           this.show_auditing_person = true;
         } else {
           this.show_auditing_person = false;
+        }
+        if (this.report_detail_json.reportDetail.is_read === "6") {
+          this.show_auditing_btn = true;
+        } else {
+          this.show_auditing_btn = false;
         }
       },
 
@@ -416,8 +409,7 @@
   .comment_list {
     background-color: #d3d3d3;
     font-size: 13px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 10px;
   }
   .auditing_img {
     width: 55px;
