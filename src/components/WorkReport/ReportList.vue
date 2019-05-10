@@ -1,13 +1,15 @@
 <template>
   <div>
-    <mt-header title="工作报告▼" class="title">
+    <!--<mt-header title="工作报告▼" class="title">
       <router-link slot="left" to="">
         <mt-button icon="back"></mt-button>
       </router-link>
       <router-link slot="right" to="">
         <mt-button  @click="addReport">新增</mt-button>
       </router-link>
-    </mt-header>
+    </mt-header>-->
+
+    <myheader :title_name="title_name"  :title_btn_string="title_btn_string"></myheader>
 
     <div style="line-height: 40px; margin-top: 40px; text-align: center; background-color: #FF7F50">筛选</div>
 
@@ -61,9 +63,18 @@
       v-model="popupVisible1"
       popup-transition="popup-fade"
       class="mint_popup_1">
-      <div class="popup_1_box1">日报</div>
-      <div class="popup_1_box1">周报</div>
-      <div class="popup_1_box2">月报</div>
+      <div class="popup_1_box1" @click="changeType(0)">全部报告</div>
+      <div class="popup_1_box1" @click="changeType(1)">我的报告</div>
+      <div class="popup_1_box1" @click="changeType(2)">所有下属的报告</div>
+      <div class="popup_1_box2" @click="changeType(3)">抄送给我的报告</div>
+    </mt-popup>
+    <mt-popup
+      v-model="popupVisible2"
+      popup-transition="popup-fade"
+      class="mint_popup_2">
+      <div class="popup_1_box1" @click="addReport(0)">日报</div>
+      <div class="popup_1_box1" @click="addReport(2)">周报</div>
+      <div class="popup_1_box2" @click="addReport(3)">月报</div>
     </mt-popup>
 
   </div>
@@ -76,10 +87,13 @@
       name: "ReportList2",
       data (){
         return {
+          title_name: "全部报告▼",
+          title_btn_string: "新增",
           page: 0,//页码
           InitialLoading: false,//初始加载
           allLoaded: false,//数据是否加载完毕
-          popupVisible1: false,//新增报告弹框
+          popupVisible1: false,//标题弹框
+          popupVisible2: false,//新增报告弹框
           bottomStatus: '',//底部上拉加载状态
           wrapperHeight: 0,//容器高度
           topStatus: '',//顶部下拉加载状态
@@ -103,6 +117,37 @@
       },
 
       methods: {
+        name_click() {
+          this.popupVisible1 = true;
+        },
+        btn_click() {
+          this.popupVisible2 = true;
+        },
+
+        changeType(report_type) {
+          this.popupVisible1 = false;
+          if (report_type === 0) {
+            this.title_name = "全部报告▼";
+          } else if (report_type === 1) {
+            this.title_name = "我的报告▼";
+          } else if (report_type === 2) {
+            this.title_name = "所有下属的报告▼";
+          } else if (report_type === 3) {
+            this.title_name = "抄送给我的报告▼";
+          }
+        },
+        addReport(type) {
+          this.popupVisible2 = false;
+          if (type === 0) {
+            Toast("新增日报");
+          } else if (type === 1) {
+            Toast("新增周报");
+          } else if (type === 2) {
+            Toast("新增月报");
+          }
+        },
+
+
         async reportListRefresh() {
           const params = {
             report_type: 0, // 报告类型
@@ -180,10 +225,6 @@
           this.allLoaded = false;//下拉刷新时解除上拉加载的禁用
           this.reportListRefresh();
         },
-
-        addReport() {
-          this.popupVisible1 = true;
-        }
       }
     }
 </script>
@@ -262,12 +303,16 @@
   }
 
   .mint_popup_1 {
-    width: 100px;
+    width: 120px;
+    border-radius: 8px;
+  }
+  .mint_popup_2 {
+    width: 90px;
     border-radius: 8px;
   }
 
   .popup_1_box1 {
-    width: 100px;
+    width: 100%;
     text-align: center;
     font-size: 13px;
     padding-top: 8px;
@@ -275,7 +320,7 @@
     border-bottom:solid 1px #eeeeee;
   }
   .popup_1_box2 {
-    width: 100px;
+    width: 100%;
     text-align: center;
     font-size: 13px;
     padding-top: 8px;

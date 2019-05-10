@@ -1,8 +1,8 @@
 <template>
     <div class="globle_head">
       <img class="title_back" src="../../assets/img/title_back.png" alt="" @click="title_back"/>
-      <span class="title_name" @click="name">{{title_name}}</span>
-      <span class="title_btn" @click="btn_click" v-if="btnIsShow">{{title_btn}}</span>
+      <span class="title_name" @click="name_click">{{title_name}}</span>
+      <span class="title_btn" @click="btn_click" v-if="btnIsShow">{{title_btn_string}}</span>
       <img class="title_add" src="../../assets/img/title_add.png" alt="" @click="add" v-if="addIsShow"/>
       <img class="title_search" src="../../assets/img/title_search.png" alt="" @click="search" v-if="searchIsShow"/>
       <img class="custom_share" src="../../assets/img/custom_share.png" alt="" @click="share" v-if="shareIsShow"/>
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-  import { Toast } from 'mint-ui';
   export default {
       name: "Header",
       props: {
@@ -20,25 +19,25 @@
           type: String,
           default: '标题'
         },
-        title_btn: {
+        title_btn_string: {
           type: String,
           default: '提交'
         },
         btnIsShow: {
           type: Boolean,
-          default: false
+          default: true
         },
         addIsShow: {
           type: Boolean,
-          default: true
+          default: false
         },
         searchIsShow: {
           type: Boolean,
-          default: true
+          default: false
         },
         shareIsShow: {
           type: Boolean,
-          default: true
+          default: false
         },
       },
 
@@ -46,20 +45,20 @@
         title_back() {
           this.$router.go(-1);
         },
-        name() {
-          this.$parent.fatherMethod();
+        name_click() {
+          this.$parent.name_click();
         },
         btn_click() {
-          Toast("提交");
+          this.$parent.btn_click();
         },
         add() {
-          Toast("add");
+          this.$parent.add();
         },
         search() {
-          Toast("search");
+          this.$parent.search();
         },
         share() {
-          Toast("share");
+          this.$parent.share();
         },
       }
   }

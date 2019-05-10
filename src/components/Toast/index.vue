@@ -2,7 +2,7 @@
   <div>
     <gheader :examplename="examplename" ref="myChild"></gheader>
     <myheader :title_name="title_name"></myheader>
-    <ul>
+    <ul style="margin-top: 100px">
       <li><mt-button size="large" @click="ToastA">默认Toast</mt-button></li>
       <li><mt-button size="large" @click="ToastB">带Icon标志的Toast</mt-button></li>
       <li><mt-button size="large" @click="ToastC">自定义位置Toast</mt-button></li>
@@ -16,7 +16,7 @@ export default {
   data(){
     return {
       examplename: "我是标题",
-      title_name: "我是标题"
+      title_name: "我是标题▼"
     }
   },
   mounted(){
@@ -40,8 +40,8 @@ export default {
         duration: 5000
       });
     },
-    fatherMethod() {
-      console.log('测试');
+    name_click() {
+      Toast(this.title_name);
     }
   }
 }
