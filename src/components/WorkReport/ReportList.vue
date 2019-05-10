@@ -73,8 +73,8 @@
       popup-transition="popup-fade"
       class="mint_popup_2">
       <div class="popup_1_box1" @click="addReport(0)">日报</div>
-      <div class="popup_1_box1" @click="addReport(2)">周报</div>
-      <div class="popup_1_box2" @click="addReport(3)">月报</div>
+      <div class="popup_1_box1" @click="addReport(1)">周报</div>
+      <div class="popup_1_box2" @click="addReport(2)">月报</div>
     </mt-popup>
 
   </div>
