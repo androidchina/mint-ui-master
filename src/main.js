@@ -8,7 +8,6 @@ import qs from 'qs'
 
 Vue.prototype.axios = axios;
 Vue.prototype.qs = qs;
-Vue.prototype.HOST='/api';
 
 //axios.defaults.baseURL = 'http://scrm.southsurvey.com';
 axios.defaults.baseURL = 'http://127.0.0.1:3000';

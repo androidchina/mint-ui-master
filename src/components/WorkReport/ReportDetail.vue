@@ -185,6 +185,9 @@
 
       console.log('加密后 report_id:%o', this.report_id);
 
+      let aaa = this.encodeChange.base64toHex(encrypt.encrypt("2019-05-06"));
+      console.log(aaa);
+
       this.getReportDetail();
       this.getCommentList();
     },

@@ -89,7 +89,6 @@
         return {
           title_name: "全部报告▼",
           title_btn_string: "新增",
-          page: 0,//页码
           InitialLoading: false,//初始加载
           allLoaded: false,//数据是否加载完毕
           popupVisible1: false,//标题弹框
@@ -99,6 +98,16 @@
           topStatus: '',//顶部下拉加载状态
           translate: 0,//
           moveTranslate: 0,
+          page: 0,// 页码，默认一页30天   默认值为0，第一页
+          report_type: 0, // 报告类型 ，默认值0  （ 0：全部报告  1：日报   2：周报   3：月报）
+          data_source: 0, // 数据源，默认0    （ 0:全部报告  1：我的报告   2：所有下属的报告   3：抄送给我的报告）
+          begin_time: "", // 开始时间
+          end_time: "", // 结束时间
+          name: "",  // 会员名称
+          day_num: "", // 默认值为空   （1:近一周  2：近一个月   3：近三个月 传值时开始时间和结束时间需要传空）
+          other_member_ids: "", // 下属ID
+          sequence_type: "", // 0:按报告创建时间，由新到老排序；1：按报告日期，由新到老排序
+          read_type: "", // 查看状态（0:全部，1:已审核，2:未审核，3:已阅，4:未阅）
           report_list_json: [],
           report_id:'',
         }
@@ -128,13 +137,19 @@
           this.popupVisible1 = false;
           if (report_type === 0) {
             this.title_name = "全部报告▼";
+            this.data_source = 0;
           } else if (report_type === 1) {
             this.title_name = "我的报告▼";
+            this.data_source = 1;
           } else if (report_type === 2) {
             this.title_name = "所有下属的报告▼";
+            this.data_source = 2;
           } else if (report_type === 3) {
             this.title_name = "抄送给我的报告▼";
+            this.data_source = 3;
           }
+          this.reportListRefresh();
+
         },
         addReport(type) {
           this.popupVisible2 = false;
@@ -150,16 +165,16 @@
 
         async reportListRefresh() {
           const params = {
-            report_type: 0, // 报告类型
-            data_source: 0, // 数据源
-            begin_time: "", // 开始时间
-            end_time: "", // 结束时间
-            name: "",  // 会员名称
+            report_type: this.report_type, // 报告类型
+            data_source: this.data_source, // 数据源  0:全部报告  1：我的报告   2：所有下属的报告   3：抄送给我的报告
+            begin_time: this.begin_time, // 开始时间
+            end_time: this.end_time, // 结束时间
+            name: this.name,  // 会员名称
             page: this.page, // 第几页
-            day_num: "",
-            other_member_ids: "", // 下属ID
-            sequence_type: "", // 0:按报告创建时间，由新到老排序；1：按报告日期，由新到老排序
-            read_type: "", // 查看状态（0:全部，1:已审核，2:未审核，3:已阅，4:未阅）
+            day_num: this.day_num,
+            other_member_ids: this.other_member_ids, // 下属ID
+            sequence_type: this.sequence_type, // 0:按报告创建时间，由新到老排序；1：按报告日期，由新到老排序
+            read_type: this.read_type, // 查看状态（0:全部，1:已审核，2:未审核，3:已阅，4:未阅）
           };
           let res = await getReportList(params);
           if (res.resCode === "1"){
@@ -173,18 +188,16 @@
 
         async reportListLoadMore() {
           const params = {
-            member_id: this.member_id,
-            login_key: this.login_key,
-            report_type: 0, // 报告类型
-            data_source: 0, // 数据源
-            begin_time: "", // 开始时间
-            end_time: "", // 结束时间
-            name: "",  // 会员名称
+            report_type: this.report_type, // 报告类型
+            data_source: this.data_source, // 数据源
+            begin_time: this.begin_time, // 开始时间
+            end_time: this.end_time, // 结束时间
+            name: this.name,  // 会员名称
             page: this.page, // 第几页
-            day_num: "",
-            other_member_ids: "", // 下属ID
-            sequence_type: "", // 0:按报告创建时间，由新到老排序；1：按报告日期，由新到老排序
-            read_type: "", // 查看状态（0:全部，1:已审核，2:未审核，3:已阅，4:未阅）
+            day_num: this.day_num,
+            other_member_ids: this.other_member_ids, // 下属ID
+            sequence_type: this.sequence_type, // 0:按报告创建时间，由新到老排序；1：按报告日期，由新到老排序
+            read_type: this.read_type, // 查看状态（0:全部，1:已审核，2:未审核，3:已阅，4:未阅）
           };
           let res = await getReportList(params);
           if (res.resCode === "1"){
