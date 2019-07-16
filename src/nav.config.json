@@ -3,8 +3,13 @@
     "title": "JS Components",
     "list": [
       {
-        "path": "/Test",
-        "name": "Test",
+        "path": "/AddContract",
+        "name": "AddContract",
+        "icon": "popup"
+      },
+      {
+        "path": "/OAuth2Test",
+        "name": "OAuth2Test",
         "icon": "spinner"
       },
       {

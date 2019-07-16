@@ -46,8 +46,10 @@ import Map from '@/components/Map'
 import CustomAdd from '@/components/Custom/CustomAdd'
 import ReportDetail from '@/components/WorkReport/ReportDetail'
 import ReportList from '@/components/WorkReport/ReportList'
+import OAuth2Test from '@/components/WorkReport/OAuth2Test'
 import ErrorPage from '@/components/Error/ErrorPage'
 import Header from '@/components/Common/Header'
+import AddContract from '@/components/AddContract/AddContract'
 
 Vue.component('gheader',Gheader)
 Vue.component('gfooter',Gfooter)
@@ -221,6 +223,14 @@ export default new Router({
     {
       path: '/Header',
       component: Header
+    },
+    {
+      path: '/OAuth2Test',
+      component: OAuth2Test
+    },
+    {
+      path: '/AddContract',
+      component: AddContract
     }
   ],
   scrollBehavior (to, from, savedPosition) {
