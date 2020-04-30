@@ -12,7 +12,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.4",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "mint-ui": "^2.2.13",
     "qs": "^6.7.0",
     "vue": "^2.5.2",
